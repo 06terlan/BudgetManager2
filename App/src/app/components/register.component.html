@@ -1,4 +1,4 @@
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+<!-- <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <div class="form-row">
     <div class="form-group col-md-6">
       <label>First Name</label>
@@ -49,4 +49,40 @@
     </div>
   </div>
   <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Register</button>
+</form> -->
+<form [formGroup]="registerForm">
+  <mat-grid-list cols="3" class="">
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile class="full-match">
+      <mat-card class="login-card">
+        <mat-card-header>
+          <mat-card-title>Registration</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          
+          <mat-form-field class="full-width">
+            <input matInput placeholder="First Name" formControlName="firstname">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Last Name" formControlName="lastname">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email" formControlName="email">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="password" placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="confirm" placeholder="Confirm password" [type]="hide ? 'password' : 'text'">
+          </mat-form-field>
+          <mat-checkbox formControlName="accept">I accept the Term of Use & Privacy Policy</mat-checkbox>
+
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="warn" (click)="onSubmit()" [disabled]="registerForm.invalid">Register</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+  </mat-grid-list>
 </form>

@@ -1,6 +1,15 @@
-form.ng-touched .ng-invalid{
-	border-color: #dc3545
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* top menu */
+.menu-spacer {
+    flex: 1 1 auto;
 }
-form.ng-touched .ng-invalid + .invalid-feedback{
-	display: block;
+.full-match>figure{
+    display: block !important;
+    padding: 5px !important;
+}
+.full-width {
+    width: 100%;
+}
+.login-card .mat-card-header-text{
+    margin-left: 0px;
 }

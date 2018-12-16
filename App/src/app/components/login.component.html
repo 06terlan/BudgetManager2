@@ -1,22 +1,27 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label>Email</label>
-      <input type="email" class="form-control" placeholder="Email" formControlName="email">
-      <div class="invalid-feedback">
-        Please provide a valid Email.
-      </div>
-    </div>
-    <div class="form-group col-md-6">
-      <label>Password</label>
-      <input type="password" class="form-control" placeholder="Password" formControlName="password">
-      <div class="invalid-feedback">
-        Please provide a valid Password.
-      </div>
-    </div>
-  </div>
-  <div *ngIf="loginError" class="alert alert-danger" role="alert">
-    Email or password is wrong;
-  </div>
-  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+  <mat-grid-list cols="3" class="">
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile class="full-match">
+      <mat-card class="login-card">
+        <mat-card-header>
+          <mat-card-title>Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email" formControlName="email">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="password" placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </mat-form-field>
+
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="warn" (click)="onSubmit()" [disabled]="loginForm.invalid">Login</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+  </mat-grid-list>
 </form>

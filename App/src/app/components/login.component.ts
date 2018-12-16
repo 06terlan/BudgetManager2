@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent{
 	loginForm:FormGroup;
 	loginError:boolean = false;
+	private hide:boolean = true;
 
 	constructor(formBuilder:FormBuilder, private userDataServcie:UserDataServcie, private router:Router){
 		this.loginForm = formBuilder.group({

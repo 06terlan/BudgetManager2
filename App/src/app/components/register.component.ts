@@ -10,11 +10,12 @@ import { Observable } from "rxjs";
 	styles: []
 })
 export class RegisterComponent{
-	private myForm: FormGroup;
+	private registerForm: FormGroup;
+	private hide:boolean = true;
 
 	constructor(private formBuilder:FormBuilder, private userDataServcie:UserDataServcie, private router:Router){
 
-		this.myForm = formBuilder.group({
+		this.registerForm = formBuilder.group({
 			firstname: ['', Validators.required],
 			lastname: ['', Validators.required],
 			email: ['', [Validators.required, Validators.email], this.checkEmail.bind(this)],
@@ -25,7 +26,7 @@ export class RegisterComponent{
 	}
 
 	onSubmit() {
-	    this.userDataServcie.registerUser(this.myForm.value)
+	    this.userDataServcie.registerUser(this.registerForm.value)
 	    	.then((d)=>{
 	    		this.router.navigate(['login']);
 	    	});
