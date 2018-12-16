@@ -1,0 +1,20 @@
+<nav class="navbar-expand-lg navbar navbar-dark bg-primary">
+  	<a class="navbar-brand">Routes</a>
+  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    	<span class="navbar-toggler-icon"></span>
+  	</button>
+  	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    	<div class="navbar-nav mr-auto">
+      		<a class="nav-item nav-link" *ngIf="idLoggedIn()" href="#" [routerLink]="['protected']" routerLinkActive="active">Protected</a>
+      		
+    	</div>
+    	<div class="navbar-nav">
+    		<a class="nav-item nav-link" *ngIf="!idLoggedIn()" href="#" [routerLink]="['login']" routerLinkActive="active">Login</a>
+      		<a class="nav-item nav-link" *ngIf="!idLoggedIn()" href="#" [routerLink]="['register']" routerLinkActive="active">Register</a>
+      		<a class="nav-item nav-link" *ngIf="idLoggedIn()" (click)="logout()" href="#" [routerLink]="['logout']" routerLinkActive="active">Logout</a>
+    	</div>
+  	</div>
+</nav>
+<div class="container pt-2">
+  <router-outlet></router-outlet>
+</div>

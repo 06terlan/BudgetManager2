@@ -1,0 +1,6 @@
+form.ng-touched .ng-invalid{
+	border-color: #dc3545
+}
+form.ng-touched .ng-invalid + .invalid-feedback{
+	display: block;
+}
