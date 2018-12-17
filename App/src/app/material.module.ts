@@ -7,6 +7,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         MatCardModule,
         MatGridListModule,
         MatInputModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatProgressSpinnerModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -27,7 +29,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         MatCardModule,
         MatGridListModule,
         MatInputModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatProgressSpinnerModule
     ]
 })
 export class Material{

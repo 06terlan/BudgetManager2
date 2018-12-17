@@ -13,3 +13,19 @@
 .login-card .mat-card-header-text{
     margin-left: 0px;
 }
+
+/* spinner */
+.page-spinner{
+    position: absolute;
+    width: 99%;
+    height: 100%;
+    background-color: #9e9e957a;
+    z-index: 999999;
+}
+.page-spinner mat-spinner{
+    width: 100px;
+    position: absolute;
+    height: 100px;
+    left: 45%;
+    top: 30%;
+}

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray} from '@angular/forms';
-import { UserDataServcie } from '../services/userdata.service';
+import { UserDataService } from '../services/userdata.service';
 import { Router } from '@angular/router';
 import { Observable } from "rxjs";
+import { Store } from '@ngrx/store';
+import { LoadingActions } from '../store/actions/loading.action';
 
 @Component({
 	selector: '',
@@ -13,7 +15,7 @@ export class RegisterComponent{
 	private registerForm: FormGroup;
 	private hide:boolean = true;
 
-	constructor(private formBuilder:FormBuilder, private userDataServcie:UserDataServcie, private router:Router){
+	constructor(private formBuilder:FormBuilder, private userDataServcie:UserDataService, private router:Router, private store:Store<any>){
 
 		this.registerForm = formBuilder.group({
 			firstname: ['', Validators.required],
@@ -26,10 +28,15 @@ export class RegisterComponent{
 	}
 
 	onSubmit() {
+		this.store.dispatch({type: LoadingActions.SHOW_LOADING });
 	    this.userDataServcie.registerUser(this.registerForm.value)
 	    	.then((d)=>{
-	    		this.router.navigate(['login']);
-	    	});
+				this.router.navigate(['login']);
+				this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+			})
+			.catch(err=>{
+				this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+			});
 	}
 
 	confirmPassword(frm: FormGroup): { [s: string]: boolean }{

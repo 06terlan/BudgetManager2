@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserDataServcie } from '../services/userdata.service';
+import { UserDataService } from '../services/userdata.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ export class LoginComponent{
 	loginError:boolean = false;
 	private hide:boolean = true;
 
-	constructor(formBuilder:FormBuilder, private userDataService:UserDataServcie, private router:Router){
+	constructor(formBuilder:FormBuilder, private userDataService:UserDataService, private router:Router){
 		this.loginForm = formBuilder.group({
 			email: ['', [Validators.required, Validators.email]],
 			password: ['', Validators.required]
