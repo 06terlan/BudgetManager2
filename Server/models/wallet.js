@@ -4,7 +4,7 @@ const wallerSchema = new Schema({
 	id: number,
 	name: String,
 	user_id: String,
-	balance: String
+	balance: 0.00
 });
 
 wallerSchema.index({id: 1, unique: true});
