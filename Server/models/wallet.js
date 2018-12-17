@@ -4,6 +4,7 @@ const wallerSchema = new Schema({
 	id: number,
 	name: String,
 	user_id: String,
+	owner: User,
 	balance: 0.00
 });
 
