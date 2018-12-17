@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const config = require('./config');
+console.log(config);
 
 var apiRouter = require('./routes/api');
 
@@ -26,7 +28,7 @@ app.use((req, res, next)=>{
 		next();
 	}
 	else{
-		mongoose.connect('mongodb://localhost:27017/app', {useNewUrlParser: true}, (err)=>{
+		mongoose.connect(`mongodb+srv://${config.db.user}:${config.db.password}@${config.db.url}/${config.db.database}`, {useNewUrlParser: true}, (err)=>{
 			if(err){
 				console.log(err);
 			}

@@ -13,7 +13,7 @@ export class LoginComponent{
 	loginError:boolean = false;
 	private hide:boolean = true;
 
-	constructor(formBuilder:FormBuilder, private userDataServcie:UserDataServcie, private router:Router){
+	constructor(formBuilder:FormBuilder, private userDataService:UserDataServcie, private router:Router){
 		this.loginForm = formBuilder.group({
 			email: ['', [Validators.required, Validators.email]],
 			password: ['', Validators.required]
@@ -21,7 +21,7 @@ export class LoginComponent{
 	}
 
 	onSubmit(){
-		this.userDataServcie.loginUser(this.loginForm.value)
+		this.userDataService.loginUser(this.loginForm.value)
 			.then((d)=>{
 				this.loginError = false;
 				localStorage.setItem('token', d.token);
