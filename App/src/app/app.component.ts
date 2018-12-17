@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import{ Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { UserDataService } from './services/userdata.service';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +9,25 @@ import{ Router } from '@angular/router';
   styles: ['']
 })
 export class AppComponent {
+  private loading:boolean = false;
+  private loggedIn:boolean = false;
 
-	constructor(private router:Router){}
+  constructor(private router:Router, private store:Store<any>, private userDateService:UserDataService)
+  {
+    
+  }
 
-  idLoggedIn():boolean{
-  	return !!localStorage.getItem('token');
+  ngOnInit(){
+    this.store.select('loadingReducer').subscribe(state=>{
+      this.loading = state.loading;
+    });
+    this.store.select('loginReducer').subscribe(state=>{
+      this.loggedIn = state.loggedIn;
+    });
   }
 
   logout(){
-  	localStorage.removeItem('token');
+  	this.userDateService.logout();
   	this.router.navigate(['login']);
   }
 }

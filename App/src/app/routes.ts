@@ -8,8 +8,7 @@ const ROUTES : Routes = [
 	{ path: '', redirectTo: '/login', pathMatch: 'full'},
 	{ path: 'login', component: LoginComponent},
 	{ path: 'register', component: RegisterComponent},
-	{ path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard]},
-	{ path: 'logout', component: ProtectedComponent}
+	{ path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard]}
 ];
 
 export const AppRoutes = RouterModule.forRoot(ROUTES);
