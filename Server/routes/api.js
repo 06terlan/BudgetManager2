@@ -82,4 +82,68 @@ router.get('/protected', verifyToken, (req, res, next)=>{
 	});
 });
 
+// add wallet
+router.post('/wallet/add', verifyToken,
+	body(['name', 'balance']).not().isEmpty().isString(),
+
+    function(req, res, next) {
+
+        const errors = validationResult(req); console.log(errors.isEmpty());
+
+        if(errors.isEmpty()){
+        	const wallet = new wallet(req.body);
+        	wallet.owner = req.user;
+            wallet.save((error, user)=>{
+                const payload = {subject: user._id};
+                const token = jwt.sign(payload, 'secret');
+                res.status(201).json({status:'Success', token: token});
+            })
+        }
+        else{
+            res.status(404);
+            res.json({status:'Error'});
+        }});
+
+// edit wallet
+router.post('/wallet/edit', verifyToken,
+    body(['name', 'balance']).not().isEmpty().isString(),
+
+    function(req, res, next) {
+
+        const errors = validationResult(req); console.log(errors.isEmpty());
+
+        if(errors.isEmpty()){
+            const wallet = new wallet(req.body);
+            wallet.owner = req.user;
+            wallet.owner.update({'name':req.name, 'balance': req.balance})
+
+            wallet.save((error, user)=>{
+                const payload = {subject: user._id};
+                const token = jwt.sign(payload, 'secret');
+                res.status(201).json({status:'Success', token: token});
+            })
+        }
+        else{
+            res.status(404);
+            res.json({status:'Error'});
+        }});
+
+// remove wallet
+router.post('/wallet/remove', verifyToken,
+    body(['name', 'balance']).not().isEmpty().isString(),
+
+    function(req, res, next) {
+
+        const errors = validationResult(req); console.log(errors.isEmpty());
+
+        if(errors.isEmpty()){
+            const wallet = new wallet(req.body);
+            wallet.owner = req.user;
+            wallet.owner = null;
+        }
+        else{
+            res.status(404);
+            res.json({status:'Error'});
+        }});
+
 module.exports = router;
