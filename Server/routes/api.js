@@ -125,7 +125,7 @@ router.post('/wallet/edit', verifyToken,
         }
         else{
             res.status(404);
-            res.json({status:'Error'});
+            res.json({status:'error'});
         }});
 
 // remove wallet
