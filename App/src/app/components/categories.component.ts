@@ -10,17 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CategoriesComponent{
 	@Input() userData = {};
-  public categories = {};
+  public categories = this.userData['categories'];
 
 	constructor(private http:HttpClient, private router:Router){}
-
-	ngOnInit(){
-		this.http.get('http://127.0.0.1:4000/api/categories').toPromise()
-			.then((d:any)=>{
-				this.categories = d.data;
-			})
-			.catch(e=>{
-			  console.log(e);
-			});
-	}
 }

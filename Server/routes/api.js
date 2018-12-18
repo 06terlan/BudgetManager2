@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../models/user');
+const Transaction = require('../models/transaction');
 const { body, query, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -77,7 +78,7 @@ router.get('/protected', verifyToken, (req, res, next)=>{
 	
 	User.findOne({_id: mongoose.mongo.ObjectId(req.userId)}, (err, user)=>{
 		if(err || !user)  res.status(404).json({status: 'Error', error: 'Not found'});
-		else res.status(200).json({status: 'Success', data: user});
+		else {res.status(200).json({status: 'Success', data: user}); console.log(user);}
 	});
 });
 

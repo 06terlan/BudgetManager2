@@ -3,6 +3,7 @@
     <app-categories></app-categories>
   </mat-sidenav>
   <mat-sidenav-content>
+    <li *ngFor="let item of userData.categories">{{item.name}}</li>
     <div class="form-group row">
       <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
       <div class="col-sm-10">
