@@ -10,7 +10,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatTableModule} from '@angular/material/table';
-import {MatSidenav, MatSidenavModule} from "@angular/material";
+import {MatSidenavModule} from "@angular/material";
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
     imports: [
@@ -25,7 +27,9 @@ import {MatSidenav, MatSidenavModule} from "@angular/material";
         MatProgressSpinnerModule,
         MatBadgeModule,
         MatTableModule,
-        MatSidenavModule
+        MatSidenavModule,
+        MatDividerModule,
+        MatListModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -39,7 +43,9 @@ import {MatSidenav, MatSidenavModule} from "@angular/material";
         MatProgressSpinnerModule,
         MatBadgeModule,
         MatTableModule,
-        MatSidenavModule
+        MatSidenavModule,
+        MatDividerModule,
+        MatListModule
     ]
 })
 export class Material{

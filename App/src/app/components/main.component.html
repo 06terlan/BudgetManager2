@@ -1,0 +1,20 @@
+<mat-drawer-container class="container">
+    <mat-drawer mode="side" opened>
+        <mat-list>
+            <button mat-raised-button color="primary" [routerLink]="['dashboard']" routerLinkActive="active">Dashboard</button>
+            
+            <mat-list-item>Wallets</mat-list-item>
+            <mat-divider></mat-divider>
+            Wallets here
+
+            <mat-list-item>Categories</mat-list-item>
+            <mat-divider></mat-divider>
+            <app-categories></app-categories>
+        </mat-list>
+        
+        
+    </mat-drawer>
+    <mat-drawer-content>
+     <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
