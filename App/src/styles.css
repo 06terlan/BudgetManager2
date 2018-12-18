@@ -15,6 +15,7 @@ body{
 .full-match>figure{
     display: block !important;
     padding: 5px !important;
+    height: fit-content !important;
 }
 .full-width {
     width: 100%;
@@ -46,4 +47,21 @@ body{
     padding: 15px;
     border-radius: 15px;
     color: white;
+}
+
+/* dashboard */
+.badge-space{
+    margin-left: 20%;
+}
+.col-6{
+    width: calc(50% - 10px);
+    float: left;
+    margin: 5px;
+}
+.text-center{
+    text-align: center;
+}
+.col-12{
+    width: (100% - 10px) !important;
+    margin: 5px;
 }

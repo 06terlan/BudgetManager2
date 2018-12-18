@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutes } from './routes';
 import { LoginComponent } from './components/login.component';
-import { ProtectedComponent } from './components/protected.component';
+import { DashboardComponent } from './components/dashboard.component';
 import { RegisterComponent } from './components/register.component';
 import { UserDataService } from './services/userdata.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -16,13 +16,15 @@ import { StoreModule } from '@ngrx/store';
 import { Material } from './material.module';
 //reducer
 import { reducers } from './store/reducers';
+//chart
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    ProtectedComponent
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,9 @@ import { reducers } from './store/reducers';
     FormsModule,
     StoreModule.forRoot(reducers, {}),
     //material
-    Material
+    Material,
+    //chart
+    ChartsModule
   ],
   providers: [
     FormBuilder, 

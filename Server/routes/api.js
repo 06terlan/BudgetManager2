@@ -55,7 +55,7 @@ router.post('/login',
 					
 				}
 				else{
-					res.status(401).json({status:'Error', error: 'No such user!'});
+					res.status(401).json({status:'Error', error: 'Password is wrong!'});
 				}
 			});
 		}
@@ -73,7 +73,7 @@ router.get('/email',
 		else res.json({exist: false});
 	});
 });
-router.get('/protected', verifyToken, (req, res, next)=>{
+router.get('/dashboard', verifyToken, (req, res, next)=>{
 	
 	User.findOne({_id: mongoose.mongo.ObjectId(req.userId)}, (err, user)=>{
 		if(err || !user)  res.status(404).json({status: 'Error', error: 'Not found'});

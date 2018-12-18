@@ -8,6 +8,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
     imports: [
@@ -19,7 +21,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatGridListModule,
         MatInputModule,
         MatCheckboxModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatBadgeModule,
+        MatTableModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -30,7 +34,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatGridListModule,
         MatInputModule,
         MatCheckboxModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatBadgeModule,
+        MatTableModule
     ]
 })
 export class Material{
