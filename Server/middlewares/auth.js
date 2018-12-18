@@ -12,6 +12,6 @@ module.exports.verifyToken = function(req, res, next){
 		return res.status(401).json({status:'Error', error: 'Unauthorized'});
 	}
 
-	req.userId = payload.subject; console.log(req.userId);
+	req.user = payload.subject;
 	next();
 }
