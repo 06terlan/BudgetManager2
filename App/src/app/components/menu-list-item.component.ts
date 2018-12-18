@@ -1,5 +1,4 @@
 import {Component, HostBinding, Input, OnInit} from '@angular/core';
-import {NavItem} from './nav-item';
 import {Router} from '@angular/router';
 import {NavService} from '../services/nav.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
@@ -7,7 +6,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 @Component({
   selector: 'app-menu-list-item',
   templateUrl: './menu-list-item.component.html',
-  styleUrls: ['./menu-list-item.component.scss'],
+  styleUrls: [],
   animations: [
     trigger('indicatorRotate', [
       state('collapsed', style({transform: 'rotate(0deg)'})),
@@ -21,7 +20,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 export class MenuListItemComponent implements OnInit {
   expanded: boolean;
   @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
-  @Input() item: NavItem;
+  @Input() item;
   @Input() depth: number;
 
   constructor(public navService: NavService,
@@ -42,7 +41,7 @@ export class MenuListItemComponent implements OnInit {
     });
   }
 
-  onItemSelected(item: NavItem) {
+  onItemSelected(item) {
     if (!item.children || !item.children.length) {
       this.router.navigate([item.route]);
       this.navService.closeNav();

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 
 @Component({
-	selector: '',
+	selector: 'app-categories',
 	templateUrl: './categories.component.html',
 	styles: []
 })

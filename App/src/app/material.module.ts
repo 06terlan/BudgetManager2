@@ -32,7 +32,8 @@ import {MatSidenav, MatSidenavModule} from "@angular/material";
         MatGridListModule,
         MatInputModule,
         MatCheckboxModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatSidenavModule
     ]
 })
 export class Material{
