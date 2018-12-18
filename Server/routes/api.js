@@ -55,7 +55,7 @@ router.post('/login',
 					
 				}
 				else{
-					res.status(401).json({status:'Error', error: 'Password is wrong!'});
+					res.status(401).json({status:'Error', error: 'No such user!'});
 				}
 			});
 		}
