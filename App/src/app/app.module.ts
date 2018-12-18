@@ -18,13 +18,17 @@ import { Material } from './material.module';
 import { reducers } from './store/reducers';
 //chart
 import { ChartsModule } from 'ng2-charts';
+import {CategoriesComponent} from "./components/categories.component";
+import {MenuListItemComponent} from "./components/menu-list-item.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    CategoriesComponent,
+    MenuListItemComponent
   ],
   imports: [
     BrowserModule,

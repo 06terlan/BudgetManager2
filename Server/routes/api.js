@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../models/user');
+const Transaction = require('../models/transaction');
 const { body, query, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -77,8 +78,72 @@ router.get('/dashboard', verifyToken, (req, res, next)=>{
 	
 	User.findOne({_id: mongoose.mongo.ObjectId(req.userId)}, (err, user)=>{
 		if(err || !user)  res.status(404).json({status: 'Error', error: 'Not found'});
-		else res.status(200).json({status: 'Success', data: user});
+		else {res.status(200).json({status: 'Success', data: user}); console.log(user);}
 	});
 });
+
+// add wallet
+router.post('/wallet/add', verifyToken,
+	body(['name', 'balance']).not().isEmpty().isString(),
+
+    function(req, res, next) {
+
+        const errors = validationResult(req); console.log(errors.isEmpty());
+
+        if(errors.isEmpty()){
+        	const wallet = new wallet(req.body);
+        	wallet.owner = req.user;
+            wallet.save((error, user)=>{
+                const payload = {subject: user._id};
+                const token = jwt.sign(payload, 'secret');
+                res.status(201).json({status:'Success', token: token});
+            })
+        }
+        else{
+            res.status(404);
+            res.json({status:'Error'});
+        }});
+
+// edit wallet
+router.post('/wallet/edit', verifyToken,
+    body(['name', 'balance']).not().isEmpty().isString(),
+
+    function(req, res, next) {
+
+        const errors = validationResult(req); console.log(errors.isEmpty());
+
+        if(errors.isEmpty()){
+            const wallet = new wallet(req.body);
+            wallet.owner = req.user;
+            wallet.owner.update({'name':req.name, 'balance': req.balance})
+
+            wallet.save((error, user)=>{
+                const payload = {subject: user._id};
+                const token = jwt.sign(payload, 'secret');
+                res.status(201).json({status:'Success', token: token});
+            })
+        }
+        else{
+            res.status(404);
+            res.json({status:'Error'});
+        }});
+
+// remove wallet
+router.post('/wallet/remove', verifyToken,
+    body(['name', 'balance']).not().isEmpty().isString(),
+
+    function(req, res, next) {
+
+        const errors = validationResult(req); console.log(errors.isEmpty());
+
+        if(errors.isEmpty()){
+            const wallet = new wallet(req.body);
+            wallet.owner = req.user;
+            wallet.owner = null;
+        }
+        else{
+            res.status(404);
+            res.json({status:'Error'});
+        }});
 
 module.exports = router;
