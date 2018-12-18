@@ -36,6 +36,11 @@ export class UserDataService{
 		localStorage.removeItem('token');
 	}
 
+	loggedIn(token){
+		this.store.dispatch({type: LoginActions.LOGIN});
+		localStorage.setItem('token', token);
+	}
+
 	isLoggedIn() :boolean{
 		return !!localStorage.getItem('token');
 	}

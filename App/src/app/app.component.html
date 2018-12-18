@@ -1,9 +1,9 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" id="header">
 	<mat-toolbar-row>
 		<span>Budget Planner</span>
 		<span class="menu-spacer"></span>
-		<button mat-button *ngIf="!loggedIn" [routerLink]="['login']">Login</button>
-		<button mat-button *ngIf="!loggedIn" [routerLink]="['register']">Register</button>
+		<button mat-button *ngIf="!loggedIn" [routerLink]="['login']" routerLinkActive="active">Login</button>
+		<button mat-button *ngIf="!loggedIn" [routerLink]="['register']" routerLinkActive="active">Register</button>
 		<button mat-button *ngIf="loggedIn" (click)="logout()">Logout</button>
 	</mat-toolbar-row>
   </mat-toolbar>

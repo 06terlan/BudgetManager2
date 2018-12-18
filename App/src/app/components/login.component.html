@@ -20,6 +20,9 @@
         <mat-card-actions>
           <button mat-raised-button color="warn" (click)="onSubmit()" [disabled]="loginForm.invalid">Login</button>
         </mat-card-actions>
+        <div class="error-badge" *ngIf="loginError">
+            Login or password is wrong!
+        </div>
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile></mat-grid-tile>
