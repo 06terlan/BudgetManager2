@@ -16,13 +16,17 @@ import { StoreModule } from '@ngrx/store';
 import { Material } from './material.module';
 //reducer
 import { reducers } from './store/reducers';
+import {CategoriesComponent} from "./components/categories.component";
+import {MenuListItemComponent} from "./components/menu-list-item.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    ProtectedComponent
+    ProtectedComponent,
+    CategoriesComponent,
+    MenuListItemComponent
   ],
   imports: [
     BrowserModule,
