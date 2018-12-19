@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LoginActions } from '../store/actions/login.action';
+import { WalletActions } from '../store/actions/wallet.action';
 
 
 export interface UserModel{
@@ -43,6 +44,7 @@ export class UserDataService{
 
 	logout(){
 		this.store.dispatch({type: LoginActions.LOGOUT});
+		this.store.dispatch({type: WalletActions.WALLET_CLEAR});
 		localStorage.removeItem('token');
 	}
 
