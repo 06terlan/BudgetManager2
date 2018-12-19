@@ -127,6 +127,14 @@ router.delete('/wallet/delete/:idd', verifyToken,
 			res.json({status:'Error'});
 		}
 });
+//transactions
+router.get('/transactions', verifyToken, (req, res, next)=>{
+	console.log(req.query.wallet);
+	Transaction.find({wallet: mongoose.mongo.ObjectId(req.query.wallet)}, (err, transactions)=>{
+		if(err)  res.status(404).json({status: 'Error', error: 'Not found'});
+		else {res.status(200).json({status: 'Success', transactions: transactions});}
+	});
+});
 
 router.get('/categories', verifyToken, (req, res, next)=>{
 

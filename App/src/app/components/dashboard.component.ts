@@ -1,26 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
-interface PeriodicElement {
-    name: string;
-    position: number;
-    weight: number;
-    symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-    {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-    {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-    {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-    {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-    {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import { Store } from '@ngrx/store';
 
 @Component({
     selector: '',
@@ -28,26 +9,42 @@ const ELEMENT_DATA: PeriodicElement[] = [
     styles: []
 })
 export class DashboardComponent{
-    displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-    dataSource = ELEMENT_DATA;
+		displayedColumns: string[] = ['position', 'category', 'description', 'date', 'amount'];
+		totals = {income: 0, expence: 0, total: 0, balance: 0};
+    dataSource = [];
 
     public userData = {};
-	constructor(private http:HttpClient, private router:Router){}
+	constructor(private http:HttpClient, private router:Router, private store:Store<any>){}
     
     ngOnInit(){
-		// this.http.get('http://127.0.0.1:4000/api/dashboard').toPromise()
-		// 	.then((d:any)=>{
-		// 		this.userData = d.data;
-		// 	})
-		// 	.catch(e=>{
-		// 	console.log(e);
-		// 		this.router.navigate(['login']);
-		// 	});
+			this.store.select('tranReducer').subscribe(d=>{
+					let EData = [], i = 0, ETotals = {income: 0, expence: 0, total: 0, balance: 0};
+					let catGroup = {};
+					for(const t of d.transactions){
+						EData.push({
+							'position': ++i, 'category': t.category.name, 'description': t.description, 'date': t.date, 'amount': t.amount
+						});
+						
+						if(t.category.type=='income') ETotals.income += t.amount;
+						if(t.category.type=='expence') ETotals.expence += t.amount;
+
+						if(!catGroup[t.category.name]) catGroup[t.category.name] = 0;
+						catGroup[t.category.name] += t.amount;
+					}
+					ETotals.total = ETotals.income - ETotals.expence;
+					//ETotals.balance = d.balance;
+
+					this.doughnutChartLabels = Object.keys(catGroup);
+					this.doughnutChartData = Object.values(catGroup);
+//console.log(this.doughnutChartLabels, this.doughnutChartData);
+					this.dataSource = EData;
+					this.totals = ETotals
+			});
     }
     
     public barChartOptions:any = {
-		scaleShowVerticalLines: false,
-		responsive: true
+			scaleShowVerticalLines: false,
+			responsive: true
 	  };
 	  public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
 	  public barChartType:string = 'bar';
@@ -81,8 +78,8 @@ export class DashboardComponent{
 
 	  //
 	  // Doughnut
-		public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-		public doughnutChartData:number[] = [350, 450, 100];
+		public doughnutChartLabels:string[] = [];
+		public doughnutChartData:number[] = [];
 		public doughnutChartType:string = 'doughnut';
 		
 		// events

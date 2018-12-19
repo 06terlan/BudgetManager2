@@ -4,12 +4,13 @@ import { WalletActions } from '../store/actions/wallet.action';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { UserDataService } from '../services/userdata.service';
 import { LoadingActions } from '../store/actions/loading.action';
+import { TranActions } from '../store/actions/tran.action';
 
 @Component({
     selector: 'app-wallets',
     template: `
     <div *ngFor="let wallet of wallets; let num=index;" class='wallet'>
-        <button [ngClass]="{active: isActive(num)}" mat-raised-button color="warn" (click)="select($event,num)"
+        <button [ngClass]="{active: isActive(num)}" mat-raised-button color="warn" (click)="select(num)"
             matBadge="{{ wallet.balance }}" matBadgePosition="after" matBadgeColor="accent">
             {{ wallet.name }} <mat-icon (click)="delete(wallet, num)">delete</mat-icon>
         </button>
@@ -20,16 +21,31 @@ import { LoadingActions } from '../store/actions/loading.action';
 export class WalletComponent{
     private wallets = [];
     private selected = 0;
+    private lastData = -1;
     constructor(private store:Store<any>, public dialog: MatDialog, private userDataService:UserDataService){}
 
     ngOnInit(){
+        const serv = this.userDataService;
         this.store.select('walletReducer').subscribe(d=>{
             this.wallets = d.wallets;
             this.selected = d.selected;
+
+            if(this.lastData != d.selected && d.wallets[d.selected]){
+                this.lastData = d.selected;
+                this.store.dispatch({type: LoadingActions.SHOW_LOADING });
+                this.userDataService.getTransactions(d.wallets[d.selected]._id)
+                .then(d=>{
+                    this.store.dispatch({type: TranActions.TRAN_CLEN_ADD, transactions: d.transactions });
+                    this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+                })
+                .catch(e=>{
+                    this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+                })
+            }
         });
     }
 
-    select(e, num){
+    select(num){
         this.store.dispatch({type: WalletActions.WALLET_CHAGE, selected: num });
         return false;
     }

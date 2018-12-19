@@ -12,8 +12,6 @@ import {CategoryActions} from "../store/actions/category.action";
 	styles: ['app-wallets{padding: 10px;}', 'mat-divider{margin-bottom: 15px;}']
 })
 export class MainComponent{
-	animal: string;
-	name: string;
   
 	constructor(public dialog: MatDialog, private userDataService:UserDataService, private store:Store<any>) 
 	{
@@ -25,21 +23,22 @@ export class MainComponent{
 			})
 			.catch(e=>{
 				this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+			});
+			
+			this.userDataService.getCategories()
+			.then(d=>{
+				this.store.dispatch({type: CategoryActions.CATEGORY_ADD, categories: d.categories });
+				this.store.dispatch({type: LoadingActions.HIDE_LOADING });
 			})
-    this.userDataService.getCategories()
-      .then(d=>{
-        this.store.dispatch({type: CategoryActions.CATEGORY_ADD, categories: d.categories });
-        this.store.dispatch({type: LoadingActions.HIDE_LOADING });
-      })
-      .catch(e=>{
-        this.store.dispatch({type: LoadingActions.HIDE_LOADING });
-      })
+			.catch(e=>{
+				this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+			});
 	}
 
 	addWallet(){
 		const dialogRef = this.dialog.open(WalletDialog, {
 			width: '250px',
-			data: {name: this.name, animal: this.animal}
+			data: {balance: 0, name: ""}
 		  });
 	  
 		  dialogRef.afterClosed().subscribe(result => {
