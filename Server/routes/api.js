@@ -17,7 +17,7 @@ router.post('/register',
 	body(['email', 'password', 'firstname', 'lastname']).not().isEmpty().isString(),
 	function(req, res, next) {
 
-		const errors = validationResult(req); console.log(errors.isEmpty());
+		const errors = validationResult(req);
 		if(errors.isEmpty()){
 			bcrypt.hash(req.body.password, 10).then(function(hash) {
 				req.body.password = hash;
@@ -38,7 +38,7 @@ router.post('/login',
 	body(['email', 'password']).not().isEmpty().isString(),
 	function(req, res, next) {
 
-		const errors = validationResult(req); console.log(errors.isEmpty());
+		const errors = validationResult(req);
 		if(errors.isEmpty()){
 			User.findOne({email: req.body.email}, (error, user)=>{
 				if(user){
@@ -89,6 +89,22 @@ router.get('/wallets', verifyToken, (req, res, next)=>{
 		if(err || !user)  res.status(404).json({status: 'Error', error: 'Not found'});
 		else {res.status(200).json({status: 'Success', wallets: user.wallets});}
 	});
+});
+router.post('/wallet/add', verifyToken,
+	body(['name', 'balance']).not().isEmpty(),
+	function(req, res, next) {
+
+		const errors = validationResult(req);
+		if(errors.isEmpty()){
+			const user = req.user;
+			User.update({_id: mongoose.mongo.ObjectId(req.userId)}, { $push: req.body }, (err, data)=>{
+				res.status(200).json({status:'Success', wallet: req.body});
+			});
+		}
+		else{
+			res.status(404);
+			res.json({status:'Error'});
+		}
 });
 
 router.get('/categories', verifyToken, (req, res, next)=>{

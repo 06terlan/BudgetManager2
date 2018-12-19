@@ -43,7 +43,15 @@ export class MainComponent{
 		  });
 	  
 		  dialogRef.afterClosed().subscribe(result => {
-				
+				this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+				this.userDataService.addWallet(result)
+					.then(d=>{
+						this.store.dispatch({type: WalletActions.WALLET_ADD, wallets: [result] });
+						this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+					})
+					.catch(e=>{
+						this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+					});
 		  });
 	}
 }
@@ -66,7 +74,7 @@ export interface DialogData {
 			</mat-form-field>
 		</div>
 		<div mat-dialog-actions>
-			<button mat-button (click)="close()">No Thanks</button>
+			<button mat-button (click)="close()">Close</button>
 			<button mat-button [mat-dialog-close]="{name: data.name, balance: data.balance}" cdkFocusInitial>Save</button>
 		</div>
 	`,
