@@ -156,9 +156,9 @@ router.post('/category/add', verifyToken, body(['name', 'type', 'parent', 'icon'
 			});
 		});
 	} else if (errors.isEmpty() && req.body.parent !== 'root') { //TODO: rewrite update statement
-        User.updateOne({_id: mongoose.mongo.ObjectId(req.userId)}, { $push: {categories: req.body} }, (err) => {
+        User.updateOne({_id: mongoose.mongo.ObjectId(req.userId), "categories.name": req.body.parent}, { $push: {"categories.$.children": req.body} }, (err) => {
             User.aggregate([
-                {$match: {_id: mongoose.mongo.ObjectId(req.userId)}},
+                {$match: {_id: mongoose.mongo.ObjectId(req.userId), "categories.name": req.body.parent}},
                 {$project: {categories: {$slice: ["$wallets", -1]}}}
             ], (err, users)=>{
                 res.status(200).json({status:'Success', category: users[0].categories[0]});

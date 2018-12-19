@@ -109,7 +109,7 @@ export class CategoriesComponent {
         </mat-select>
 			</mat-form-field>
       <mat-form-field>
-        <mat-select [(ngModel)]="data.type" placeholder="Parent" required>
+        <mat-select [(ngModel)]="data.parent" placeholder="Parent" required>
           <mat-option aria-selected="true" value="root">Root</mat-option>
           <mat-option *ngFor="let item of categories" [value]="item.name">{{item.name}}</mat-option>
         </mat-select>
