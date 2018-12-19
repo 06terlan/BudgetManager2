@@ -22,6 +22,7 @@ export class UserDataService{
 	private walletAddUrl:string = "http://127.0.0.1:4000/api/wallet/add";
 	private categoriesUrl:string = "http://127.0.0.1:4000/api/categories";
 	private categoryAddUrl:string = "http://127.0.0.1:4000/api/category/add";
+	private categoryDeleteUrl:string = "http://127.0.0.1:4000/api/category/delete";
 	private walletDeleteUrl:string = "http://127.0.0.1:4000/api/wallet/delete";
 	private transactionsUrl:string = "http://127.0.0.1:4000/api/transactions";
 
@@ -51,17 +52,21 @@ export class UserDataService{
 		return this.http.post<any>(this.walletAddUrl, wallet).toPromise();
 	}
 
-    deleteWallet(wallet){
-      return this.http.delete<any>(this.walletDeleteUrl + "/" + wallet._id).toPromise();
-    }
+  deleteWallet(wallet){
+    return this.http.delete<any>(this.walletDeleteUrl + "/" + wallet._id).toPromise();
+  }
 
-    getCategories(){
-      return this.http.get<any>(this.categoriesUrl).toPromise();
-    }
+  getCategories(){
+    return this.http.get<any>(this.categoriesUrl).toPromise();
+  }
 
-    addCategory(category){
-      return this.http.post<any>(this.categoryAddUrl, category).toPromise();
-    }
+  addCategory(category){
+    return this.http.post<any>(this.categoryAddUrl, category).toPromise();
+  }
+
+  deleteCategory(category){
+    return this.http.delete<any>(this.categoryDeleteUrl + "/" + category._id).toPromise();
+  }
 
 	logout(){
 		this.store.dispatch({type: LoginActions.LOGOUT});

@@ -10,7 +10,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatTableModule} from '@angular/material/table';
-import {MatExpansionModule, MatMenuModule, MatSidenavModule} from "@angular/material";
+import {MatExpansionModule, MatMenuModule, MatSelectModule, MatSidenavModule} from "@angular/material";
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -33,7 +33,8 @@ import {MatDialogModule} from '@angular/material/dialog';
         MatListModule,
         MatDialogModule,
         MatMenuModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatSelectModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -52,7 +53,8 @@ import {MatDialogModule} from '@angular/material/dialog';
         MatListModule,
         MatDialogModule,
         MatMenuModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatSelectModule
     ]
 })
 export class Material{

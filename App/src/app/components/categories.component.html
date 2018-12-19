@@ -6,12 +6,12 @@
         <span>{{ item.name }}</span>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div *ngFor="let child of item.children; let num=index;" class='category'>
-      <button [ngClass]="{active: isActive(num)}" mat-raised-button color="warn" (click)="select($event,num)" matBadgePosition="after" matBadgeColor="accent">
-        <mat-icon>{{ child.icon }}</mat-icon>
-        <span>{{ child.name }}</span>
-      </button>
-    </div>
+      <mat-action-list>
+        <button *ngFor="let child of item.children; let num=index;" class='category' [ngClass]="{active: isActive(num)}" mat-raised-button color="warn" (click)="select($event,num)" matBadgePosition="after" matBadgeColor="accent">
+          <mat-icon>{{ child.icon }}</mat-icon>
+          <span>{{ child.name }}</span>
+        </button>
+      </mat-action-list>
   </mat-expansion-panel>
 </mat-accordion>
-
+<mat-list-item class="clickable" (click)="addCategory()">New Category<mat-icon>add</mat-icon></mat-list-item>

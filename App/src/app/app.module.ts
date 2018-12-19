@@ -20,7 +20,7 @@ import { Material } from './material.module';
 import { reducers } from './store/reducers';
 //chart
 import { ChartsModule } from 'ng2-charts';
-import {CategoriesComponent} from "./components/categories.component";
+import {CategoriesComponent, CategoryDialog, DeleteCategoryDialog} from "./components/categories.component";
 import {MenuListItemComponent} from "./components/menu-list-item.component";
 
 @NgModule({
@@ -34,7 +34,9 @@ import {MenuListItemComponent} from "./components/menu-list-item.component";
     DashboardComponent,
     WalletDialog,
     WalletComponent,
-    DeleteWalletDialog
+    DeleteWalletDialog,
+    CategoryDialog,
+    DeleteCategoryDialog
   ],
   imports: [
     BrowserModule,
@@ -56,6 +58,6 @@ import {MenuListItemComponent} from "./components/menu-list-item.component";
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [WalletDialog, DeleteWalletDialog]
+  entryComponents: [WalletDialog, DeleteWalletDialog, CategoryDialog, DeleteCategoryDialog]
 })
 export class AppModule { }

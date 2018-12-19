@@ -19,7 +19,7 @@ import { TranActions } from '../store/actions/tran.action';
     styles: ['.wallet{ margin-top:5px; }', 'button{width:100%}', '.mat-badge-content{width: auto;padding: 2px;right: 1% !important;}']
 })
 export class WalletComponent{
-    private wallets = [];
+    public wallets = [];
     private selected = 0;
     private lastData = -1;
     constructor(private store:Store<any>, public dialog: MatDialog, private userDataService:UserDataService){}
@@ -81,7 +81,7 @@ export class WalletComponent{
 
 
 
-// add allet dialog
+// add wallet dialog
 @Component({
 	selector: 'dialog-overview-example-dialog',
 	template: `
