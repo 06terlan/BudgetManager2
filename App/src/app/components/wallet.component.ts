@@ -20,7 +20,7 @@ export class WalletComponent{
     constructor(private store:Store<any>){}
 
     ngOnInit(){
-        this.store.select('waletReducer').subscribe(d=>{
+        this.store.select('walletReducer').subscribe(d=>{
             this.wallets = d.wallets;
             this.selected = d.selected;
         });

@@ -8,7 +8,7 @@ import {CategoryActions} from "../store/actions/category.action";
 	templateUrl: './categories.component.html',
 	styles: []
 })
-export class CategoriesComponent{
+export class CategoriesComponent implements Ini{
   private categories = [];
   private selected = 0;
 
