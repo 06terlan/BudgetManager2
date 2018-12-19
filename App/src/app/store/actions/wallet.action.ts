@@ -1,0 +1,6 @@
+export enum WalletActions{
+    WALLET_ADD = 'WALLET_ADD',
+    WALLET_CHAGE = 'WALLET_CHAGE',
+    WALLET_EDIT = 'WALLET_EDIT',
+    WALLET_DELETE = 'WALLET_DELETE'
+}

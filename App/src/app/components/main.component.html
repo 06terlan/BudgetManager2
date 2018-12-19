@@ -3,9 +3,9 @@
         <mat-list>
             <button mat-raised-button color="primary" [routerLink]="['dashboard']" routerLinkActive="active">Dashboard</button>
             
-            <mat-list-item>Wallets</mat-list-item>
+            <mat-list-item>Wallets <mat-icon class="clickable" (click)="addWallet()">add</mat-icon></mat-list-item>
             <mat-divider></mat-divider>
-            Wallets here
+            <app-wallets></app-wallets>
 
             <mat-list-item>Categories</mat-list-item>
             <mat-divider></mat-divider>

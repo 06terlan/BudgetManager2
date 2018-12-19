@@ -16,6 +16,8 @@ export class UserDataService{
 	private registerUrl:string = "http://127.0.0.1:4000/api/register";
 	private loginUrl:string = "http://127.0.0.1:4000/api/login";
 	private emailCheckUrl:string = "http://127.0.0.1:4000/api/email";
+	private walletsUrl:string = "http://127.0.0.1:4000/api/wallets";
+	private walletAddUrl:string = "http://127.0.0.1:4000/api/wallet/add";
 
 	constructor(private http:HttpClient, private store:Store<any>){}
 
@@ -29,6 +31,14 @@ export class UserDataService{
 
 	checkEmail(email){
 		return this.http.get<any>(this.emailCheckUrl, {params: {email: email}}).toPromise();
+	}
+
+	getWallets(){
+		return this.http.get<any>(this.walletsUrl).toPromise();
+	}
+
+	addWallet(wallet){
+		return this.http.post<any>(this.walletAddUrl, wallet).toPromise();
 	}
 
 	logout(){

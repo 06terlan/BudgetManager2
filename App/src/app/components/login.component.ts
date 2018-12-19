@@ -28,7 +28,7 @@ export class LoginComponent{
 			.then((d)=>{
 				this.loginError = false;
 				this.userDataServcie.loggedIn(d.token);
-				this.router.navigate(['dashboard']);
+				this.router.navigate(['app']);
 				this.store.dispatch({type: LoadingActions.HIDE_LOADING });
 			})
 			.catch(err=>{

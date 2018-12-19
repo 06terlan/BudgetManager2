@@ -6,13 +6,14 @@ import { RouterModule } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutes } from './routes';
 import { LoginComponent } from './components/login.component';
-import { MainComponent } from './components/main.component';
+import { MainComponent, WalletDialog } from './components/main.component';
 import { RegisterComponent } from './components/register.component';
 import { UserDataService } from './services/userdata.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AuthGuard } from './guards/auth.guard';
 import { StoreModule } from '@ngrx/store';
 import { DashboardComponent } from './components/dashboard.component';
+import { WalletComponent } from './components/wallet.component';
 //material
 import { Material } from './material.module';
 //reducer
@@ -30,7 +31,9 @@ import {MenuListItemComponent} from "./components/menu-list-item.component";
     MainComponent,
     CategoriesComponent,
     MenuListItemComponent,
-    DashboardComponent
+    DashboardComponent,
+    WalletDialog,
+    WalletComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,7 @@ import {MenuListItemComponent} from "./components/menu-list-item.component";
     AuthGuard,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [WalletDialog]
 })
 export class AppModule { }

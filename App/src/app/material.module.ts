@@ -13,6 +13,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSidenavModule} from "@angular/material";
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
     imports: [
@@ -29,7 +30,8 @@ import {MatListModule} from '@angular/material/list';
         MatTableModule,
         MatSidenavModule,
         MatDividerModule,
-        MatListModule
+        MatListModule,
+        MatDialogModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -45,7 +47,8 @@ import {MatListModule} from '@angular/material/list';
         MatTableModule,
         MatSidenavModule,
         MatDividerModule,
-        MatListModule
+        MatListModule,
+        MatDialogModule
     ]
 })
 export class Material{
