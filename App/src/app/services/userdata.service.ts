@@ -18,6 +18,8 @@ export class UserDataService{
 	private emailCheckUrl:string = "http://127.0.0.1:4000/api/email";
 	private walletsUrl:string = "http://127.0.0.1:4000/api/wallets";
 	private walletAddUrl:string = "http://127.0.0.1:4000/api/wallet/add";
+	private categoriesUrl:string = "http://127.0.0.1:4000/api/categories";
+	private categoryAddUrl:string = "http://127.0.0.1:4000/api/category/add";
 
 	constructor(private http:HttpClient, private store:Store<any>){}
 
@@ -34,12 +36,20 @@ export class UserDataService{
 	}
 
 	getWallets(){
-		return this.http.get<any>(this.walletsUrl).toPromise();
-	}
+    return this.http.get<any>(this.walletsUrl).toPromise();
+  }
 
-	addWallet(wallet){
-		return this.http.post<any>(this.walletAddUrl, wallet).toPromise();
-	}
+  addWallet(wallet){
+    return this.http.post<any>(this.walletAddUrl, wallet).toPromise();
+  }
+
+  getCategories(){
+    return this.http.get<any>(this.categoriesUrl).toPromise();
+  }
+
+  addCategory(category){
+    return this.http.post<any>(this.categoryAddUrl, category).toPromise();
+  }
 
 	logout(){
 		this.store.dispatch({type: LoginActions.LOGOUT});

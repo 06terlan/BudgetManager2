@@ -28,8 +28,8 @@ app.use((req, res, next)=>{
 		next();
 	}
 	else{
-		//mongoose.connect(`mongodb+srv://${config.db.user}:${config.db.password}@${config.db.url}/${config.db.database}`, {useNewUrlParser: true}, 
-		mongoose.connect(`mongodb://localhost:27017/app`, {useNewUrlParser: true}, 
+		mongoose.connect(`mongodb+srv://${config.db.user}:${config.db.password}@${config.db.url}/${config.db.database}`, {useNewUrlParser: true},
+		//mongoose.connect(`mongodb://localhost:27017/app`, {useNewUrlParser: true},
 		(err)=>{
 			if(err){
 				console.log(err);

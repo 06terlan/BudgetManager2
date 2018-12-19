@@ -4,6 +4,7 @@ import { UserDataService } from '../services/userdata.service';
 import { Store } from '@ngrx/store';
 import { LoadingActions } from '../store/actions/loading.action';
 import { WalletActions } from '../store/actions/wallet.action';
+import {CategoryActions} from "../store/actions/category.action";
 
 @Component({
 	selector: '',
@@ -25,6 +26,14 @@ export class MainComponent{
 			.catch(e=>{
 				this.store.dispatch({type: LoadingActions.HIDE_LOADING });
 			})
+    this.userDataService.getCategories()
+      .then(d=>{
+        this.store.dispatch({type: CategoryActions.CATEGORY_ADD, categories: d.categories });
+        this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+      })
+      .catch(e=>{
+        this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+      })
 	}
 
 	addWallet(){
