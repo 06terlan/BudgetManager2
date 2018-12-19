@@ -11,14 +11,7 @@ const userSchema = new Schema({
 			balance: Number
 		}
 	],
-    categories: [
-        {
-            name: String,
-            children: [],
-            type: String,
-            icon: String
-        }
-    ]
+    categories: []
 });
 
 userSchema.index({email: 1, unique: true});

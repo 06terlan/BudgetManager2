@@ -47,7 +47,7 @@ router.post('/login',
 						if(hRes){
 							const payload = {subject: user._id};
 							const token = jwt.sign(payload, 'secret');
-							res.status(200).json({status:'Success', token: token, wallets: user.wallets});
+							res.status(200).json({status:'Success', token: token, wallets: user.wallets, categories: user.categories});
 						}
 						else{
 							res.status(401).json({status:'Error', error: 'Password is wrong!'});
@@ -78,7 +78,7 @@ router.get('/dashboard', verifyToken, (req, res, next)=>{
 	
 	User.findOne({_id: mongoose.mongo.ObjectId(req.userId)}, (err, user)=>{
 		if(err || !user)  res.status(404).json({status: 'Error', error: 'Not found'});
-		else {res.status(200).json({status: 'Success', data: user}); console.log(user);}
+		else {res.status(200).json({status: 'Success', data: user});}
 	});
 });
 
@@ -126,6 +126,14 @@ router.delete('/wallet/delete/:idd', verifyToken,
 			res.status(404);
 			res.json({status:'Error'});
 		}
+});
+
+router.get('/categories', verifyToken, (req, res, next)=>{
+
+    User.findOne({_id: mongoose.mongo.ObjectId(req.userId)}, (err, user)=>{
+        if(err || !user)  res.status(404).json({status: 'Error', error: 'Not found'});
+        else {res.status(200).json({status: 'Success', categories: user.categories});}
+    });
 });
 
 module.exports = router;

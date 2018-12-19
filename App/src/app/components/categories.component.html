@@ -1,2 +1,17 @@
-<app-menu-list-item *ngFor="let item of categories" [item]="item"></app-menu-list-item>
-<li *ngFor="let item of categories">{{item.name}}</li>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let item of categories; let num=index;">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.name }}</span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngFor="let child of item.children; let num=index;" class='category'>
+      <button [ngClass]="{active: isActive(num)}" mat-raised-button color="warn" (click)="select($event,num)" matBadgePosition="after" matBadgeColor="accent">
+        <mat-icon>{{ child.icon }}</mat-icon>
+        <span>{{ child.name }}</span>
+      </button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+

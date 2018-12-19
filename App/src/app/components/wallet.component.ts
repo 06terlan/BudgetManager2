@@ -23,10 +23,9 @@ export class WalletComponent{
     constructor(private store:Store<any>, public dialog: MatDialog, private userDataService:UserDataService){}
 
     ngOnInit(){
-        this.store.select('waletReducer').subscribe(d=>{
+        this.store.select('walletReducer').subscribe(d=>{
             this.wallets = d.wallets;
             this.selected = d.selected;
-            console.log(this.wallets);
         });
     }
 
@@ -39,7 +38,7 @@ export class WalletComponent{
         const dialogRef = this.dialog.open(DeleteWalletDialog, {
 			width: '250px'
 		  });
-	  
+
 		  dialogRef.afterClosed().subscribe(result => {
               if(result){
                 this.store.dispatch({type: LoadingActions.SHOW_LOADING });
@@ -55,7 +54,7 @@ export class WalletComponent{
               }
 				
           });
-          
+
           return false;
     }
 
@@ -63,6 +62,7 @@ export class WalletComponent{
         return this.selected==num;
     }
 }
+
 
 
 // add allet dialog
@@ -80,13 +80,13 @@ export class WalletComponent{
 	`,
   })
   export class DeleteWalletDialog {
-  
+
 	constructor(
 	  public dialogRef: MatDialogRef<DeleteWalletDialog>,
 	  @Inject(MAT_DIALOG_DATA) public data) {}
-  
+
 	close(): void {
 	  this.dialogRef.close();
 	}
-  
+
   }
