@@ -43,10 +43,10 @@ export class MainComponent{
 		  });
 	  
 		  dialogRef.afterClosed().subscribe(result => {
-				this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+				this.store.dispatch({type: LoadingActions.SHOW_LOADING });
 				this.userDataService.addWallet(result)
 					.then(d=>{
-						this.store.dispatch({type: WalletActions.WALLET_ADD, wallets: [result] });
+						this.store.dispatch({type: WalletActions.WALLET_ADD, wallets: [d.wallet] });
 						this.store.dispatch({type: LoadingActions.HIDE_LOADING });
 					})
 					.catch(e=>{

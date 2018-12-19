@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LoginActions } from '../store/actions/login.action';
 import { WalletActions } from '../store/actions/wallet.action';
+import {CategoryActions} from "../store/actions/category.action";
 
 
 export interface UserModel{
@@ -21,6 +22,7 @@ export class UserDataService{
 	private walletAddUrl:string = "http://127.0.0.1:4000/api/wallet/add";
 	private categoriesUrl:string = "http://127.0.0.1:4000/api/categories";
 	private categoryAddUrl:string = "http://127.0.0.1:4000/api/category/add";
+    private walletDeleteUrl:string = "http://127.0.0.1:4000/api/wallet/delete";
 
 	constructor(private http:HttpClient, private store:Store<any>){}
 
@@ -37,24 +39,29 @@ export class UserDataService{
 	}
 
 	getWallets(){
-    return this.http.get<any>(this.walletsUrl).toPromise();
-  }
+		return this.http.get<any>(this.walletsUrl).toPromise();
+	}
 
-  addWallet(wallet){
-    return this.http.post<any>(this.walletAddUrl, wallet).toPromise();
-  }
+	addWallet(wallet){
+		return this.http.post<any>(this.walletAddUrl, wallet).toPromise();
+	}
 
-  getCategories(){
-    return this.http.get<any>(this.categoriesUrl).toPromise();
-  }
+    deleteWallet(wallet){
+      return this.http.delete<any>(this.walletDeleteUrl + "/" + wallet._id).toPromise();
+    }
 
-  addCategory(category){
-    return this.http.post<any>(this.categoryAddUrl, category).toPromise();
-  }
+    getCategories(){
+      return this.http.get<any>(this.categoriesUrl).toPromise();
+    }
+
+    addCategory(category){
+      return this.http.post<any>(this.categoryAddUrl, category).toPromise();
+    }
 
 	logout(){
 		this.store.dispatch({type: LoginActions.LOGOUT});
 		this.store.dispatch({type: WalletActions.WALLET_CLEAR});
+		this.store.dispatch({type: CategoryActions.CATEGORY_CLEAR});
 		localStorage.removeItem('token');
 	}
 

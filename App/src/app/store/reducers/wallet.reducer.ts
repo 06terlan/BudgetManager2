@@ -14,7 +14,9 @@ export function walletReducer(state:WalletState = initialState, action):WalletSt
         case WalletActions.WALLET_CHAGE:
             return {selected: action.selected, wallets: [ ...state.wallets ]};
         case WalletActions.WALLET_CLEAR:
-        return initialState;
+            return initialState;
+        case WalletActions.WALLET_DELETE:
+            return {selected: state.selected, wallets: [ ...state.wallets.filter((ele)=>ele!=action.wallet) ]};
     }
     
     return state;
