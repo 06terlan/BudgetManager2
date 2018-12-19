@@ -144,4 +144,43 @@ router.get('/categories', verifyToken, (req, res, next)=>{
     });
 });
 
+router.post('/category/add', verifyToken, body(['name', 'type', 'parent', 'icon']).not().isEmpty(), function(req, res, next) {
+	const errors = validationResult(req);
+	if(errors.isEmpty() && req.body.parent === 'root') {
+		User.updateOne({_id: mongoose.mongo.ObjectId(req.userId)}, { $push: {categories: req.body} }, (err) => {
+			User.aggregate([
+				{$match: {_id: mongoose.mongo.ObjectId(req.userId)}},
+				{$project: {categories: {$slice: ["$wallets", -1]}}}
+			], (err, users)=>{
+				res.status(200).json({status:'Success', category: users[0].categories[0]});
+			});
+		});
+	} else if (errors.isEmpty() && req.body.parent !== 'root') { //TODO: rewrite update statement
+        User.updateOne({_id: mongoose.mongo.ObjectId(req.userId)}, { $push: {categories: req.body} }, (err) => {
+            User.aggregate([
+                {$match: {_id: mongoose.mongo.ObjectId(req.userId)}},
+                {$project: {categories: {$slice: ["$wallets", -1]}}}
+            ], (err, users)=>{
+                res.status(200).json({status:'Success', category: users[0].categories[0]});
+            });
+        });
+	}
+	else{
+		res.status(404);
+		res.json({status:'Error'});
+	}
+});
+router.delete('/category/delete/:id', verifyToken, check(["id"]).not().isEmpty(), function(req, res, next) {
+	const errors = validationResult(req);
+	if(errors.isEmpty()){
+		User.update({_id: mongoose.mongo.ObjectId(req.userId)}, { $pull: {categories: {_id: mongoose.mongo.ObjectId(req.params.id)}}}, (err, data)=>{
+			res.status(200).json({status:'Success', category: data});
+		});
+	}
+	else{
+		res.status(404);
+		res.json({status:'Error'});
+	}
+});
+
 module.exports = router;
