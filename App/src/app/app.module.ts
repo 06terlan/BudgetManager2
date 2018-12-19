@@ -13,7 +13,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AuthGuard } from './guards/auth.guard';
 import { StoreModule } from '@ngrx/store';
 import { DashboardComponent } from './components/dashboard.component';
-import { WalletComponent } from './components/wallet.component';
+import { WalletComponent, DeleteWalletDialog } from './components/wallet.component';
 //material
 import { Material } from './material.module';
 //reducer
@@ -33,7 +33,8 @@ import {MenuListItemComponent} from "./components/menu-list-item.component";
     MenuListItemComponent,
     DashboardComponent,
     WalletDialog,
-    WalletComponent
+    WalletComponent,
+    DeleteWalletDialog
   ],
   imports: [
     BrowserModule,
@@ -55,6 +56,6 @@ import {MenuListItemComponent} from "./components/menu-list-item.component";
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [WalletDialog]
+  entryComponents: [WalletDialog, DeleteWalletDialog]
 })
 export class AppModule { }

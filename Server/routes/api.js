@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/user');
 const Transaction = require('../models/transaction');
-const { body, query, validationResult } = require('express-validator/check');
+const { body, query, check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { verifyToken } = require('../middlewares/auth');
@@ -96,9 +96,30 @@ router.post('/wallet/add', verifyToken,
 
 		const errors = validationResult(req);
 		if(errors.isEmpty()){
-			const user = req.user;
-			User.update({_id: mongoose.mongo.ObjectId(req.userId)}, { $push: req.body }, (err, data)=>{
-				res.status(200).json({status:'Success', wallet: req.body});
+			User.updateOne({_id: mongoose.mongo.ObjectId(req.userId)}, { $push: {wallets: req.body} }, (err)=>{
+				
+				User.aggregate([
+					{$match: {_id: mongoose.mongo.ObjectId(req.userId)}},
+					{$project: {wallets: {$slice: ["$wallets", -1]}}}
+				], (err, users)=>{
+					res.status(200).json({status:'Success', wallet: users[0].wallets[0]});
+				});
+
+			});
+		}
+		else{
+			res.status(404);
+			res.json({status:'Error'});
+		}
+});
+router.delete('/wallet/delete/:idd', verifyToken,
+	check(["idd"]).not().isEmpty(),
+	function(req, res, next) {
+
+		const errors = validationResult(req);
+		if(errors.isEmpty()){
+			User.update({_id: mongoose.mongo.ObjectId(req.userId)}, { $pull: {wallets: {_id: mongoose.mongo.ObjectId(req.params.idd)}}}, (err, data)=>{
+				res.status(200).json({status:'Success', wallet: data});
 			});
 		}
 		else{

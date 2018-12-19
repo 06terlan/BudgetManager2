@@ -19,6 +19,7 @@ export class UserDataService{
 	private emailCheckUrl:string = "http://127.0.0.1:4000/api/email";
 	private walletsUrl:string = "http://127.0.0.1:4000/api/wallets";
 	private walletAddUrl:string = "http://127.0.0.1:4000/api/wallet/add";
+	private walletDeleteUrl:string = "http://127.0.0.1:4000/api/wallet/delete";
 
 	constructor(private http:HttpClient, private store:Store<any>){}
 
@@ -40,6 +41,10 @@ export class UserDataService{
 
 	addWallet(wallet){
 		return this.http.post<any>(this.walletAddUrl, wallet).toPromise();
+	}
+
+	deleteWallet(wallet){
+		return this.http.delete<any>(this.walletDeleteUrl + "/" + wallet._id).toPromise();
 	}
 
 	logout(){
