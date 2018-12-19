@@ -76,7 +76,7 @@ button[color="warn"].active{
     padding: 5px;
 }
 mat-drawer{
-    padding: 10px;
+    padding: 30px;
 }
 mat-drawer-content{
     padding: 10px;

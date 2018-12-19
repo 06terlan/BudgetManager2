@@ -11,11 +11,11 @@ import { LoadingActions } from '../store/actions/loading.action';
     <div *ngFor="let wallet of wallets; let num=index;" class='wallet'>
         <button [ngClass]="{active: isActive(num)}" mat-raised-button color="warn" (click)="select($event,num)"
             matBadge="{{ wallet.balance }}" matBadgePosition="after" matBadgeColor="accent">
-            {{ wallet.name }} <mat-icon (click)="delete(wallet)">delete</mat-icon>
+            {{ wallet.name }} <mat-icon (click)="delete(wallet, num)">delete</mat-icon>
         </button>
     </div>
     `,
-    styles: ['.wallet{ margin-top:5px; }']
+    styles: ['.wallet{ margin-top:5px; }', 'button{width:100%}', '.mat-badge-content{width: auto;padding: 2px;right: 1% !important;}']
 })
 export class WalletComponent{
     private wallets = [];
@@ -35,21 +35,25 @@ export class WalletComponent{
         return false;
     }
 
-    delete(wallet){
+    delete(wallet, num){
         const dialogRef = this.dialog.open(DeleteWalletDialog, {
 			width: '250px'
 		  });
 	  
 		  dialogRef.afterClosed().subscribe(result => {
-				this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+              if(result){
+                this.store.dispatch({type: LoadingActions.SHOW_LOADING });
 				this.userDataService.deleteWallet(wallet)
 					.then(d=>{
 						this.store.dispatch({type: WalletActions.WALLET_DELETE, wallet: wallet });
-						this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+                        this.store.dispatch({type: LoadingActions.HIDE_LOADING });
+                        if(this.selected === num) this.store.dispatch({type: WalletActions.WALLET_CHAGE, selected: 0 });
 					})
 					.catch(e=>{
 						this.store.dispatch({type: LoadingActions.HIDE_LOADING });
 					});
+              }
+				
           });
           
           return false;

@@ -34,6 +34,7 @@ export class MainComponent{
 		  });
 	  
 		  dialogRef.afterClosed().subscribe(result => {
+			if(result){
 				this.store.dispatch({type: LoadingActions.SHOW_LOADING });
 				this.userDataService.addWallet(result)
 					.then(d=>{
@@ -43,6 +44,8 @@ export class MainComponent{
 					.catch(e=>{
 						this.store.dispatch({type: LoadingActions.HIDE_LOADING });
 					});
+			}
+				
 		  });
 	}
 }

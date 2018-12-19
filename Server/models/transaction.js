@@ -7,8 +7,11 @@ const transactionSchema = new Schema({
     user: {
         _id: String
     },
-    wallet: String,
-    category: String
+    wallet: Schema.ObjectId,
+    category: {
+        name: String,
+        type: String
+    }
 });
 
 transactionSchema.index({name: 1, unique: true});
